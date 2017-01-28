@@ -1,0 +1,9 @@
+[package]
+name = "motorsport_calendar_common"
+version = "0.1.0"
+authors = ["Michael Ashe <mickjohnashe@hotmail.com>"]
+
+[dependencies]
+serde = "0.8"
+serde_derive = "0.8"
+chrono = { version = "0.2", features = ["serde"] }
