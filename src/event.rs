@@ -5,21 +5,20 @@ use chrono::prelude::*;
 pub struct Event {
     pub id: i32,
     pub sport: String,
-    pub round: i32,
+    pub title: String,
+    pub track: String,
     pub country: String,
     pub location: String,
-    // pub start_date: DateTime<Utc>,
-    // pub end_date: DateTime<Utc>,
     pub sessions: Vec<Session>,
 }
 
 impl Event {
     pub fn get_start_date(&self) -> Option<Date<Utc>> {
-        self.sessions.first().map(|s| s.date.date())
+        self.sessions.first().and_then(|s| s.time.map(|t|t.date()))
     }
 
     pub fn get_end_date(&self) -> Option<Date<Utc>> {
-        self.sessions.last().map(|s| s.date.date())
+        self.sessions.last().and_then(|s| s.time.map(|t|t.date()))
     }
 }
 
@@ -28,6 +27,5 @@ pub struct Session {
    pub id: i32,
    pub event_id: i32,
    pub name: String,
-   pub date: DateTime<Utc>,
    pub time: Option<DateTime<Utc>>,
 }
