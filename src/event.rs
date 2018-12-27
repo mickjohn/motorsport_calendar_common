@@ -1,4 +1,3 @@
-use chrono::DateTime;
 use chrono::prelude::*;
 
 #[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]
@@ -13,11 +12,11 @@ pub struct Event {
 }
 
 impl Event {
-    pub fn get_start_date(&self) -> Option<Date<Utc>> {
+    pub fn get_start_date(&self) -> Option<NaiveDate> {
         self.sessions.first().and_then(|s| s.time.map(|t|t.date()))
     }
 
-    pub fn get_end_date(&self) -> Option<Date<Utc>> {
+    pub fn get_end_date(&self) -> Option<NaiveDate> {
         self.sessions.last().and_then(|s| s.time.map(|t|t.date()))
     }
 }
@@ -27,5 +26,5 @@ pub struct Session {
    pub id: i32,
    pub event_id: i32,
    pub name: String,
-   pub time: Option<DateTime<Utc>>,
+   pub time: Option<NaiveDateTime>,
 }
